@@ -1,0 +1,159 @@
+---
+title: "Exploratory Analysis"
+author: "Daniel Lu, Victoria Jiang"
+date: "5/18/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(plotly)
+```
+
+## Outcome Variable Distributions:
+
+### Work Interfere:
+```{r}
+OSMI2014 <- read.csv("../Data/survey.csv", stringsAsFactors = FALSE)
+target <- OSMI2014 %>% 
+  mutate(work_interfere = replace_na(work_interfere, "No Mental Illness")) %>% 
+  select(c(work_interfere))
+
+print(unique(target))
+
+numericalTarget <- OSMI2014 %>% 
+  mutate(work_interfere = replace(work_interfere, grepl("Never", work_interfere), 0)) %>% 
+  mutate(work_interfere = replace(work_interfere, grepl("Rarely", work_interfere), 1)) %>% 
+  mutate(work_interfere = replace(work_interfere, grepl("Sometimes", work_interfere), 2)) %>% 
+  mutate(work_interfere = replace(work_interfere, grepl("Often", work_interfere), 3)) %>% 
+  mutate(work_interfere = as.numeric(work_interfere)) %>% 
+  select(c(work_interfere))
+
+numericalTarget <- numericalTarget %>%
+  drop_na()
+
+print(paste("Average:", mean(numericalTarget$work_interfere)))
+print(paste("Standard Deviation:", sd(numericalTarget$work_interfere)))
+print(paste("Median:", median(numericalTarget$work_interfere)))
+
+```
+
+We like 'work_interfere' as an outcome variable because it can be used not only to determine how severely a worker's mental illness is affecting their work, but it also gives information on which workers *have* a mental illness, something that is not surveyed elsewhere. This, in turn, allows us to determine the prevalence of mental illness among our tech worker sample, which can be compared against a sample of the general population to see if there is any difference in the frequency of mental illness.
+
+This is an ordinal variable, meaning that in order to take averages or standard deviations, I needed to create numerical values. What I have found is that, looking just at the population that has / had a mental illness, the average impact on work performance was around 1.54, in between "Rarely" and "Sometimes", with a standard deviation of around 1, and a median of 2. This leads me to believe that, while our results had a lot of variation, the average tech worker with mental illess does suffer moderately (in terms of work performance) due to it. This could be a result of not receiving help and subsequently not developing strategies to mitigate their mental illness. 
+
+<p>&nbsp;</p>
+
+```{r}
+interference <- ggplot(target, aes(x = factor(work_interfere, level = c('No Mental Illness', 'Never', 'Rarely', 'Sometimes', 'Often')))) +
+  geom_bar(stat = "count", size = 4) + 
+  labs(
+    title = "Frequency of Work Interference",
+    x = "How often does mental illness affect work?",
+    y = "Count"
+  )
+ggplotly(interference)
+```
+
+Looking at our frequency plot of work interference, we can see that, similar to what we discovered above, the "Sometimes" category is the most populated, with 465 individuals. What is most interesting to me, based on this plot, is that of workers in this survey, there are far more with some type of mental illness than without, with more than half the number of workers that said they do not have a mental illness, saying that their work is often affected by mental illness. This is etiher a reflection on poor sampling, or on the prevalence of mental illness in the tech community. 
+
+
+By looking at the comparison graph, we can see a huge difference between each category. The number of female, gender neutral, and others look significantly less comparing to male as male indeed is the dominant gender within tech field. However, there are actually more male have not yet receive treatments for their mental illness, whereas the other genders are more likely to receive treatments. This can be caused by male care more about the face and masculinity, so they prefer not to show their weakness by seeking for help. 
+
+### Employer Benefits:
+
+```{r}
+OSMI2014 <- read.csv("../Data/survey.csv", stringsAsFactors = FALSE)
+target_benefit <- OSMI2014 %>% 
+  select(benefits)
+
+benefit <- OSMI2014 %>% 
+  mutate(benefits = replace(benefits, grepl("Yes", benefits), 1)) %>% 
+  mutate(benefits = replace(benefits, grepl("No", benefits), 0)) %>% 
+  mutate(benefits = as.numeric(benefits)) %>% 
+  select(c(benefits))
+
+
+
+benefit <- benefit %>%
+  drop_na()
+
+print(paste("Average:", mean(benefit$benefits)))
+print(paste("Standard Deviation:", sd(benefit$benefits)))
+print(paste("Median:", median(benefit$benefits)))
+
+```
+
+We decided to use 'benefits' as an outcome variable because we want to disocver if the fact that having benefits will affect job performance/ mental health. After calculation, we learned that our average is 0.56 and our standard deviation is 0.496 with a median of 1. During our calculation, we also found a good amount of people don't know if they have benefits.That gives us a better idea that whether or not having benefits affects job performance and mental health. 
+
+```{r}
+benefit_graph <- ggplot(target_benefit, aes(x = factor(benefits, level = c('Yes', 'No', 'Do not know')))) + geom_bar(stat = "count") + 
+  labs(
+    title = "Frequency of Benefits",
+    x = "Benefit",
+    y = "Count"
+  )
+ggplotly(benefit_graph)
+
+```
+
+Looking at the histogram above, we can know that more than half people have benefits and a good amount of people do not know if they have benefits at their company. An interesting questions that we could ask ourselves is why there are many people who don't know about their benefits. Or does this factor ('benefit') not play an important role while deciding if they should work at the company and how would this factor affect while making the dicision in accecpting the company offer. 
+
+## Relationships Between Variables:
+
+### Tech career vs Mental Illness:
+
+```{r}
+OSMI2019 <- read.csv("../Data/OSMI 2019 Mental Health in Tech Survey Results - OSMI Mental Health in Tech Survey 2019.csv", stringsAsFactors = FALSE)
+setUp <- OSMI2019 %>% 
+  drop_na(Overall..how.much.importance.does.your.employer.place.on.mental.health.)
+  
+interference <- ggplot(setUp, aes(x = factor(If.you.have.a.mental.health.disorder..how.often.do.you.feel.that.it.interferes.with.your.work..when.._.NOT._..being.treated.effectively..i.e...when.you.are.experiencing.symptoms..., level=c("Not applicable to me", "Never", "Rarely", "Sometimes", "Often")), y = Overall..how.much.importance.does.your.employer.place.on.mental.health., color = If.you.have.a.mental.health.disorder..how.often.do.you.feel.that.it.interferes.with.your.work..when.._.NOT._..being.treated.effectively..i.e...when.you.are.experiencing.symptoms...)) +
+  geom_count() +
+  labs(
+    title = "Employer support vs Frequency of Work Interference",
+    x = "How often does mental illness affect work?",
+    y = "Employer importance of mental health",
+    color = "\n"
+  )
+interference <- interference + scale_y_continuous(breaks = seq(0, 10, by = 1))
+ggplotly(interference)
+```
+
+I decided to plot the importance that employers place on mental health vs frequency of mental health interference as one of the relationship graphs. In doing so, I expected to find that companies with a higher level of support for employees with mental health illnesses would see a lower number of employees with debilitating issues, as employees with severe mental health conditions would be receiving support.
+
+Based on my graph, however, this is not quite the case. While, across all levels, the companies that give high levels of mental health support seem to have a lower employee presence, employees are still there, nonetheless. Furthermore, and contrary to my expectation, employees that suffer from mental health conditions in supportive companies seem to be either not affected or often affected - there is no in-between. Aside from that realization, it seems that the majority of employees with mental health conditions fall toward the middle of the company support spectrum, which makes sense - the average company likely only gives an average amount of support towards mental health - and, interestingly enough, the total number of employees with a mental health condition appear to be fairly similar when comparing companies with a high and low level of mental health support. This leads me to question the effect that offering mental health support has on an employee's mental state and necessitates additional research to draw a concrete conclusion. In particular, I would like to find additional samples, and search for confounding factors.
+
+### Gender vs Treatment Received:
+```{r}
+OSMI2014 <- read.csv("../Data/survey.csv", stringsAsFactors = FALSE)
+
+OSMI2014 %>%
+  mutate(Gender = replace(Gender, grepl(substr("Male", 0, 1), ignore.case = T, Gender), "Male")) %>%
+  mutate(Gender = replace(Gender, grepl(substr("Female", 0, 1), ignore.case = T, Gender), "Female")) %>%
+  mutate(Gender = replace(Gender, grepl("Woman", ignore.case = T, Gender), "Female")) %>%
+  mutate(Gender = replace(Gender, grepl("femail", ignore.case = T, Gender), "Female")) %>%
+  mutate(Gender = replace(Gender, grepl("p", ignore.case = F, Gender), "Gender Neutral")) %>%
+  mutate(Gender = replace(Gender, grepl("Enby", Gender), "Gender Neutral")) %>%
+  mutate(Gender = replace(Gender, grepl("non-binary", Gender), "Gender Neutral")) %>%
+  mutate(Gender = replace(Gender, grepl("Agender", Gender), "Gender Neutral")) %>%
+  mutate(Gender = replace(Gender, grepl("Neuter", Gender), "Gender Neutral")) %>%
+  mutate(Gender = replace(Gender, grepl("fluid", Gender), "Gender Neutral")) %>%
+  mutate(Gender = replace(Gender, grepl("Nah", Gender), "Others")) %>%
+  mutate(Gender = replace(Gender, grepl("Androgyne", Gender), "Others")) %>%
+  mutate(Gender = replace(Gender, grepl("queer", Gender), "Others")) %>%
+  mutate(Gender = replace(Gender, grepl("A little about you", Gender), "Others")) %>%
+  mutate(Gender = replace(Gender, grepl("All", Gender), "Others")) %>%
+  mutate(Gender = replace(Gender, grepl("Guy", Gender), "Others")) %>%
+  
+  ggplot(aes(x = treatment, fill = Gender)) +
+  geom_bar() +
+  facet_wrap(~Gender) +
+  labs(x = "Did the person choose to receive treatment? ",
+       title = "Comparisons Between Gender and Treatment for Mental Illness") +
+  theme_linedraw()
+```
+
+By looking at the comparison graph, we can see a huge difference between each category. The number of female, gender neutral, and others look significantly less comparing to male as male indeed is the dominant gender within tech field. However, there are actually more male have not yet receive treatments for their mental illness, whereas the other genders are more likely to receive treatments. This can be caused by male care more about the face and masculinity, so they prefer not to show their weakness by seeking for help.
+
