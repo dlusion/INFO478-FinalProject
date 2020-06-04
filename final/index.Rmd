@@ -1,0 +1,64 @@
+---
+title: "index"
+author: "Daniel Lu"
+date: "6/3/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(plotly)
+```
+
+# PURPOSE: The purpose of our project is to determine the effect on mental health of a career in the technology industry.  
+
+<!-- Remember to tailor your resource to a specific target audience. The amount of framing you need to do for a scientific versus general audience is quite different -->
+
+
+## Introduction:
+It is hard to go through college in a technology-related major without hearing the horror stories about the discrimination, unjust firings, and preferential treatment present in major companies. Regardless, as Informatics students at the University of Washington, a large proportion of our class likely intends to find work in the technology industry after graduation. As such, and being given the opportunity to explore these reports, we have designed this project to determine the effect on mental health of a career in the technology industry. To help us realize the purpose of this project we used information from the Substance Abuse and Mental Health Services Administration (SAMHSA), part of the US Department of Health and Human Services, and datasets from Open Sourcing Mental Illness (OSMI), an organization focused on promoting mental health awareness in the tech community. 
+
+As part of our initial look into the issue, we decided to examine the prevalence of mental illness within both the tech industry and the general population:
+
+```{r}
+umbrella <- data.frame(
+  type = c("General Population", "Tech-Industry"), 
+  year = c(2014, 2014., 2016, 2016, 2018, 2018, 2019, 2019), 
+  mi_prevalence = c(.181, .506, .183, .42, .191, .45, NA, .41)
+) 
+
+test <- ggplot(umbrella, aes(x = year, y = mi_prevalence
+                             , color = type)) +
+  geom_line() +
+  geom_point(size = 2) +
+  labs(
+    title = "Mental Illness Prevalence by Year",
+    x = "Year",
+    y = "% with a Mental Illness"
+  )
+ggplotly(test)
+
+```
+
+What we found was, among survey participants, the prevalence of mental illness hovered around 40%, whereas within the general population it hovered around 20%. Given that the OSMI surveys that we use as our primary source of information is an opt in survey, there is some room for questions on how representative of a sample can be obtained. Unfortunately, mental health in the tech community does not seem like a very well-funded research topic, as the OSMI surveys were the best source of information that we could find and were cited in several news articles. Regardless, these numbers show that the area deserves further investigation, and more attention in general.
+
+
+<!-- The purpose of your topic is clearly captured in your resource -->
+
+## Visualizations (2-3):
+
+<!-- Quantitative questions are clearly and concisely explained with thoughtful text and compelling visuals -->
+<!-- A nuanced understanding of the important features of the dataset and topic is demonstrated. -->
+
+### Some options: 
+<!-- Could throw in a linear regression model here to see how the likelihood of mental illness depends on different features  -->
+<!-- Plot mental illness counts in the tech industry against different potential risk factors -->
+<!-- Mental Illness in men vs women -->
+<!-- How are companies handling it? Company support? -->
+<!-- DALYs for known mental illnesses in tech? -->
+<!-- Location-Based trends? -->
+
+## Analysis:
+
+<!-- Methods and results of your analysis are clear -->
