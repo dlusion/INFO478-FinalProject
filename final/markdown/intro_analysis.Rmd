@@ -1,0 +1,10 @@
+---
+title: "Intro Analysis"
+author: "Daniel Lu"
+date: "6/5/2020"
+output: html_document
+---
+
+<p>&nbsp;</p>
+
+What we found was, among survey participants, the prevalence of mental illness hovered around 40%, whereas within the general population it hovered around 20%. Given that the OSMI surveys that we use as our primary source of information is an opt in survey, there is some room for questions on how representative of a sample can be obtained. Unfortunately, mental health in the tech community does not seem like a very well-funded research topic, as the OSMI surveys were the best source of information that we could find and were cited in several news articles. Regardless, these numbers show that the area deserves further investigation, and more attention in general.

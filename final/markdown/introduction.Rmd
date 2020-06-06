@@ -1,0 +1,14 @@
+---
+title: "Intro"
+author: "Daniel Lu"
+date: "6/5/2020"
+output: html_document
+---
+
+## Introduction:
+It is hard to go through college in a technology-related major without hearing the horror stories about the discrimination, unjust firings, and preferential treatment present in major companies. Regardless, as Informatics students at the University of Washington, a large proportion of our class likely intends to find work in the technology industry after graduation. As such, and being given the opportunity to explore these reports, we have designed this project to determine the effect on mental health of a career in the technology industry. To help us realize the purpose of this project we used information from the Substance Abuse and Mental Health Services Administration (SAMHSA), part of the US Department of Health and Human Services, and datasets from Open Sourcing Mental Illness (OSMI), an organization focused on promoting mental health awareness in the tech community. 
+
+As part of our initial look into the issue, we decided to examine the prevalence of mental illness within both the tech industry and the general population:
+
+<p>&nbsp;</p>
+

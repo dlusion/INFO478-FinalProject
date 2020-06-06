@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = FALSE)
 library(tidyverse)
 library(plotly)
+library(stats)
 ```
 
 # PURPOSE: The purpose of our project is to determine the effect on mental health of a career in the technology industry.  
@@ -45,19 +46,39 @@ What we found was, among survey participants, the prevalence of mental illness h
 
 
 <!-- The purpose of your topic is clearly captured in your resource -->
-
+ifelse or if_else here?
 ## Visualizations (2-3):
+y = (y == "versicolor") + (y == "virginica")*2
+```{r}
+osmi2016 <- read.csv("../Data/osmi_2016.csv", stringsAsFactors = FALSE)
+osmi2016 <- osmi2016 %>% 
+  rename("current_disorder" = Do.you.currently.have.a.mental.health.disorder.,
+         "tech_employer" = 3, 
+         "mental_health_benefits" = 5, 
+         "work_position" = 62, 
+         "company_size" = 2, 
+         "country" = 60, 
+         "request_leave" = 10) %>%
+  select(c("current_disorder", 2, 3, 5, 10, 60, 62)) %>% 
+  rowwise() %>%
+  drop_na() %>%
+  mutate(current_disorder = as.numeric(current_disorder == "Yes")) %>% 
+  # mutate(work_position = replace(work_position))
+test <- lm(current_disorder ~ "request_leave", data = osmi2016)
+# test <- lm(current_disorder ~ factor(request_leave) + factor(tech_employer) + factor(company_size) + factor(mental_health_benefits), data = osmi2016)
+summary(test)
+```
 
 <!-- Quantitative questions are clearly and concisely explained with thoughtful text and compelling visuals -->
 <!-- A nuanced understanding of the important features of the dataset and topic is demonstrated. -->
 
 ### Some options: 
-<!-- Could throw in a linear regression model here to see how the likelihood of mental illness depends on different features  -->
-<!-- Plot mental illness counts in the tech industry against different potential risk factors -->
-<!-- Mental Illness in men vs women -->
-<!-- How are companies handling it? Company support? -->
-<!-- DALYs for known mental illnesses in tech? -->
-<!-- Location-Based trends? -->
+<!-- Could throw in a linear regression model here to see how the likelihood of mental illness depends on different features  --> ***
+<!-- Plot mental illness counts in the tech industry against different potential risk factors --> *** pair
+<!-- Mental Illness in men vs women --> pair
+<!-- How are companies handling it? Company support? --> pair
+<!-- DALYs for known mental illnesses in tech? --> ***
+<!-- Location-Based trends? --> pair
 
 ## Analysis:
 

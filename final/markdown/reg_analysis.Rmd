@@ -1,0 +1,16 @@
+---
+title: "Regression Analysis"
+author: "Daniel Lu"
+date: "6/5/2020"
+output: html_document
+---
+
+<p>&nbsp;</p>
+
+Looking at our 'Model Marginal Effects' table, we see a list of dy/dx values that correspond to our risk factors, or predictor variables. 
+We use marginal effects here because they are easier to interpret than the coefficients of the logistic regression model. Each dy/dx value simply
+represents an increase or decrease in the probability of someone with that risk factor currently having a a mental disorder, all other factors 
+being held constant. So, for example, examining the marginal effects that belong to the initial model (Ease of Requesting Leave, with no other parameters), 'dydx_request_leaveVery difficult' has a value of .27. This means that, all other factors held constant, there is a 27% increase in the probability of currently having a mental disorder, for an employee that would have a very hard time requesting mental health leave.
+
+There are many interesting values within the dy/dx lists, however, some particularly notable shifts in probability belong to work_positionHR, with 39%, work_positionDesigner, with 34%, and the United States at 22%. As for trends within the data, it would seem that the ease of requesting mental health leave and job position are the two most important risk factors, of my subset, in determining the probability that an individual has a mental health disorder. Within the requesting_leave variable, the higher end of the difficulty scale correlated with the higher probabilities of having a mental disorder. This suggests that in companies that do not have support systems for workers, or companies that discriminate against workers with mental disorders, there is a higher percentage of employees suffering from poor mental health than elsewhere. Additionally, and interestingly enough, within work_position, it seems that roles that sterotypically require more collaboration with coworkers, like Design, HR, IT, and Sales, there is a higher probability of an employee developing a mental disorder. This could be due to conflict between coworkers that is not as frequent in positions that potentially require less collaboration, like Development and System Administration. 
+
