@@ -41,16 +41,48 @@ ui <- fluidPage(
                  
                  fluidRow(verbatimTextOutput(outputId = "modelSummary")), 
                  
-                 h3("Model Marginal Effects"), 
+                 h3("Model Marginal Effects:"), 
                  
                  fluidRow(tableOutput(outputId = "modelMarge")), 
-                 
-                 h3("Analysis"), 
+
+                 h3("Analysis:"), 
                  
                  includeMarkdown("./markdown/reg_analysis.Rmd")
                  
-               )
-             ))
+               ))), 
+    
+    tabPanel("Years Lived with Disability",
+             sidebarLayout(
+               sidebarPanel(
+                 
+                 # Allows users to select for which diseases they would live to see YLDs
+                 checkboxGroupInput(
+                   "yldDisorders", 
+                   label = h3("Disorders to Include:"), 
+                   choices = list("Anxiety Disorders" = "Anxiety Disorders", "Attention Deficit Hyperactivity Disorder" =
+                                    "ADHD", "Psychotic Disorders" = "Psychotic Disorders", 
+                                  "Post-Traumatic Stress Disorder" = "PTSD", "Obsessive Compulsive Disorder" = "OCD",
+                                  "Borderline Personality Disorder" = "Borderline Personality Disorder", 
+                                  "Substance Use Disorders" = "Substance Use Disorders", 
+                                  "Mood Disorders" = "Mood Disorders", "Eating Disorders" = "Eating Disorders"), 
+                   selected = c("Anxiety Disorders", "ADHD", "Psychotic Disorders", "PTSD", "OCD",
+                                "Borderline Personality Disorder", "Substance Use Disorders", "Mood Disorders",
+                                "Eating Disorders")
+                   )
+                 ), # End YLD Side Panel
+               
+               mainPanel(
+                 
+                 plotlyOutput("yldGraph"),
+                 
+                 h3("Analysis:"), 
+                 
+                 includeMarkdown("./markdown/yld_analysis.Rmd")
+              
+               )))
+  )
+)
+      
     
     # # Tab for the DCM model
     # tabPanel("Deterministic Model",
@@ -227,8 +259,6 @@ ui <- fluidPage(
     # 
     # # Citations tab
     # tabPanel("Citations", includeMarkdown("./sources.Rmd"))
-  )
-)
 
 # select_keys <- c("Not Washing hands", "Washing hands")
 # select_keys_for_sd <- c("Social Distance", "No Social Distance") 

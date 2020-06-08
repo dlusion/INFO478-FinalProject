@@ -5,7 +5,6 @@ date: "6/5/2020"
 output: html_document
 ---
 
-<p>&nbsp;</p>
 
 Looking at our 'Model Marginal Effects' table, we see a list of dy/dx values that correspond to our risk factors, or predictor variables. 
 We use marginal effects here because they are easier to interpret than the coefficients of the logistic regression model. Each dy/dx value simply

@@ -1,0 +1,13 @@
+---
+title: "yld_analysis"
+author: "Daniel Lu"
+date: "6/7/2020"
+output: html_document
+---
+
+
+tech total = 247.6808
+
+general population = 117.2296
+
+As we can see from our Years Lived with Disability visualization, the
