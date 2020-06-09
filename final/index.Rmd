@@ -83,3 +83,19 @@ summary(test)
 ## Analysis:
 
 <!-- Methods and results of your analysis are clear -->
+
+
+```{r}
+osmi2016 <- read.csv("../Data/osmi_2016.csv", stringsAsFactors = FALSE)
+
+v3 <- osmi2016 %>%
+  ggplot(aes(x = Do.you.currently.have.a.mental.health.disorder.,
+         y = If.a.mental.health.issue.prompted.you.to.request.a.medical.leave.from.work..asking.for.that.leave.would.be., fill = Do.you.currently.have.a.mental.health.disorder.)) +
+  geom_count() +
+ #"Back-end Developer", "Front-end Developer", "Supervisor/Team Lead", "DevOps/SysAdmin", "Multiple Roles", "Executive Leadership" I wanted to facet these positions into the graph but couldn't get it to work
+  labs(x = "Do you currently have a mental health disorder",
+       y = "Possibility to request a medical leave for mental health issue")
+ggplotly(v3)
+```
+
+
