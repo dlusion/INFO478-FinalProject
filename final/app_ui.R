@@ -12,8 +12,11 @@ ui <- fluidPage(
     
     # Tab for the introduction
     tabPanel("Introduction", 
+             
              includeMarkdown("./markdown/introduction.Rmd"), 
+             
              plotlyOutput("introPlot"), 
+             
              includeMarkdown("./markdown/intro_analysis.Rmd")), 
     
     # Tab for the Regression model and corresponding analysis
@@ -79,7 +82,26 @@ ui <- fluidPage(
                  
                  includeMarkdown("./markdown/yld_analysis.Rmd")
               
-               )))
+               ))), 
+    tabPanel("Mental Disorder vs Risk Factor Visualization", 
+             sidebarLayout(
+               sidebarPanel(
+                 
+                 selectInput(
+                   "r_factor",
+                   label = h3("Select Risk Factor"), 
+                   choices = list("Tech Employer" = "tech_employer", "Company Offers Mental Health Benefits" =
+                                    "mental_health_benefits", "Company Size" = "company_size", 
+                                  "Ease of Requesting Leave" = "request_leave", "Country of Work" = "country", 
+                                  "Occupation" = "work_position"), 
+                   selected = c("tech_employer")
+                 ),
+               ), 
+               
+               mainPanel(
+                 plotlyOutput("disorderViz")
+               )
+             ))
   )
 )
 

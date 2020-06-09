@@ -11,7 +11,7 @@ server <- function(input, output) {
   ok_jobs <- c("Back-end Developer", "Front-end Developer", "Supervisor/Team Lead", "DevOps/SysAdmin", "Multiple Roles", "Executive Leadership")
   top_countries <- c("United States of America", "United Kingdom", "Canada", "Germany", "Netherlands")
   osmi2016 <- read.csv("./Data/osmi_2016.csv", stringsAsFactors = FALSE)
-  osmi2016 <- osmi2016 %>% 
+  osmi2016_v1 <- osmi2016 %>% 
     rename("current_disorder" = Do.you.currently.have.a.mental.health.disorder.,
            "tech_employer" = 3, 
            "mental_health_benefits" = 5, 
@@ -90,12 +90,12 @@ server <- function(input, output) {
   })
   
   output$modelSummary <- renderPrint({
-    glm.fit <- glm(lmParams(), data = osmi2016, family = "binomial")
+    glm.fit <- glm(lmParams(), data = osmi2016_v1, family = "binomial")
     summary(glm.fit)
   })
   
   output$modelMarge <- renderTable({
-    glm.fit <- glm(lmParams(), data = osmi2016, family = "binomial")
+    glm.fit <- glm(lmParams(), data = osmi2016_v1, family = "binomial")
     margeff <- marginal_effects(glm.fit)
     margedf <- data.frame(
       name = colnames(margeff), 
@@ -127,6 +127,45 @@ server <- function(input, output) {
       )
     
     ggplotly(yld_plt)
+  })
+  
+  selectedFactor <- reactive({
+    input$r_factor
+  })
+  
+  output$disorderViz <- renderPlotly({
+    x_var <- list("tech_employer" = "Is your employer primarily a tech company?", "mental_health_benefits" =
+                    "Does your employer offer mental health benefits?", "company_size" = 
+                    "How large is the company you work for?", "request_leave" =
+                    "How easy is it to request leave for mental health?", "country" = "What country do you work in?", 
+                  "work_position" = "What is your position at work?")
+    x_name <- x_var[[selectedFactor()]]
+    y_var <- c("tech_employer")
+    print(y_var[1])
+    
+    osmi2016_v3 <- osmi2016 %>% 
+      rename("current_disorder" = Do.you.currently.have.a.mental.health.disorder.,
+             "tech_employer" = 3, 
+             "mental_health_benefits" = 5, 
+             "work_position" = 62, 
+             "company_size" = 2, 
+             "country" = 60, 
+             "request_leave" = 10) %>%
+      select(c("current_disorder", 2, 3, 5, 10, 60, 62)) %>% 
+      rowwise() %>%
+      drop_na() %>%
+      mutate(work_position = replace(work_position, grepl("\\|", work_position), "Multiple Roles")) %>% 
+      mutate(country = replace(country, !country %in% top_countries, "Other"))
+    
+    v3 <- osmi2016_v3 %>%
+      ggplot(aes(x = factor(.data[[selectedFactor()]]), y = current_disorder, fill = selectedFactor())) +
+      geom_count() +
+      labs(
+        title = "Current Disorder v Risk Factors",
+        x = x_name,
+        y =  "Do you currently have a mental health disorder?"
+      )
+    ggplotly(v3)
   })
   
 }
