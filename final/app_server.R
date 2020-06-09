@@ -10,7 +10,7 @@ library(margins)
 server <- function(input, output) {
   ok_jobs <- c("Back-end Developer", "Front-end Developer", "Supervisor/Team Lead", "DevOps/SysAdmin", "Multiple Roles", "Executive Leadership")
   top_countries <- c("United States of America", "United Kingdom", "Canada", "Germany", "Netherlands")
-  osmi2016 <- read.csv("../Data/osmi_2016.csv", stringsAsFactors = FALSE)
+  osmi2016 <- read.csv("./Data/osmi_2016.csv", stringsAsFactors = FALSE)
   osmi2016 <- osmi2016 %>% 
     rename("current_disorder" = Do.you.currently.have.a.mental.health.disorder.,
            "tech_employer" = 3, 
@@ -26,7 +26,7 @@ server <- function(input, output) {
     mutate(work_position = replace(work_position, grepl("\\|", work_position), "Multiple Roles")) %>% 
     mutate(country = replace(country, !country %in% top_countries, "Other"))
   
-  dw <- read.csv("../Data/gbd2016.csv", stringsAsFactors = FALSE)
+  dw <- read.csv("./Data/gbd_2016.CSV", stringsAsFactors = FALSE)
   
   yld_t <- dw %>% 
     select(c(1, 4))
@@ -115,7 +115,6 @@ server <- function(input, output) {
   
   output$yldGraph <- renderPlotly({
     filt_ylds <- yld_t[c(disorders()), ]
-    print(filt_ylds)
     yld_plt <- ggplot(filt_ylds, aes(x = type, y = ylds, fill = Sequela)) +
       geom_col(width = .5) + coord_flip() + 
       labs(
