@@ -64,7 +64,7 @@ server <- function(input, output) {
     umbrella <- data.frame(
       type = c("General Population", "Tech-Industry"), 
       year = c(2014, 2014., 2016, 2016, 2018, 2018, 2019, 2019), 
-      mental_ill_prevalence = c(.181, .506, .183, .42, .191, .45, NA, .41)
+      mental_ill_prevalence = c(18.1, 50.6, 18.3, 42.0, 19.1, 45.0, NA, 41.0)
     ) 
     
     introPlot <- ggplot(umbrella, aes(x = year, y = mental_ill_prevalence
