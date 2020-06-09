@@ -5,9 +5,9 @@ account: dlusion
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2428696
-bundleId: 3245274
+bundleId: 3245661
 url: https://dlusion.shinyapps.io/INFO478_MENTAL_HEALTH_IN_TECH/
-when: 1591665378.39636
+when: 1591677407.73393
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: index.html|index.Rmd|Data/OSMI 2019 Mental Health in Tech Survey Results - OSMI Mental Health in Tech Survey 2019.csv|Data/survey.csv

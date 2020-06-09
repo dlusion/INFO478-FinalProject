@@ -23,7 +23,8 @@ server <- function(input, output) {
     rowwise() %>%
     drop_na() %>%
     mutate(current_disorder = as.numeric(current_disorder == "Yes")) %>% 
-    mutate(work_position = replace(work_position, grepl("\\|", work_position), "Multiple Roles")) %>% 
+    mutate(work_position = replace(work_position, grepl("\\|", work_position), "Multiple Roles")) %>%
+    mutate(work_position = replace(work_position, !work_position %in% ok_jobs, "Other")) %>%
     mutate(country = replace(country, !country %in% top_countries, "Other"))
   
   dw <- read.csv("./Data/gbd_2016.CSV", stringsAsFactors = FALSE)
@@ -141,7 +142,6 @@ server <- function(input, output) {
                   "work_position" = "What is your position at work?")
     x_name <- x_var[[selectedFactor()]]
     y_var <- c("tech_employer")
-    print(y_var[1])
     
     osmi2016_v3 <- osmi2016 %>% 
       rename("current_disorder" = Do.you.currently.have.a.mental.health.disorder.,
@@ -155,10 +155,11 @@ server <- function(input, output) {
       rowwise() %>%
       drop_na() %>%
       mutate(work_position = replace(work_position, grepl("\\|", work_position), "Multiple Roles")) %>% 
+      mutate(work_position = replace(work_position, !work_position %in% ok_jobs, "Other")) %>%
       mutate(country = replace(country, !country %in% top_countries, "Other"))
     
     v3 <- osmi2016_v3 %>%
-      ggplot(aes(x = factor(.data[[selectedFactor()]]), y = current_disorder, fill = selectedFactor())) +
+      ggplot(aes(x = factor(.data[[selectedFactor()]]), y = current_disorder, fill = .data[[selectedFactor()]])) +
       geom_count() +
       labs(
         title = "Current Disorder v Risk Factors",
