@@ -1,0 +1,12 @@
+---
+title: "Conclusion"
+author: "Molly Li"
+date: "6/8/2020"
+output: html_document
+---
+
+From these visualizations above, we can see that there is a significantly higher proportion of people who have metal illness compared to the general public. 
+Additionally, from the third visualization, the years peopoe who work in tech lived with mental illness are way more than general public.
+From there, we can conclude that mental illness has become more and more prominent in recent years for people who work in tech industry than general public 
+because of its stressful working environment and highly competitive culture. As INFO students who are mostly likely to work in tech industry after graduation, 
+we realize that it is vital to look out if the company we work for support its employees' mental condition.

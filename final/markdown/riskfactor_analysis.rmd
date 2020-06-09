@@ -1,0 +1,8 @@
+---
+
+title: "risk factor_analysis"
+author: "Daniel Lu"
+date: "6/7/2020"
+output: html_document
+---
+We decided to analyze the relationship between some risk factors and the status of employees’ mental health. We observed that employees from tech company defiantly suffer from more mental disorders than those who don’t work in the tech field. Majority of the companies do offer mental health benefits, but according to the stats we see that a good chunk of employees are not aware of whether or not their company offer these benefits regardless the status of their mental health. Moreover, people may assume there is a positive relationship between the company size and employees’ mental health status, but it is indeed not true. People who work in middle size companies actually suffer more which is understandable since the company is still in the developing stage, it can create more stress and have heavier workload. We can also observe that employees are somewhat having difficult times requesting leaves, and lastly, the US definitely has the highest number of people who suffer from mental health issues. 

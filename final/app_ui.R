@@ -99,9 +99,20 @@ ui <- fluidPage(
                ), 
                
                mainPanel(
-                 plotlyOutput("disorderViz")
+                 plotlyOutput("disorderViz"),
+                 
+                 h3("Analysis:"), 
+                 
+                 includeMarkdown("./markdown/riskfactor_analysis.Rmd")
                )
-             ))
+             )), 
+    tabPanel("Conclusion", 
+             h3("Conclusion:"),
+             includeMarkdown("./markdown/conclusion.Rmd")), 
+    
+    tabPanel("Citations",
+             h3("Citations:"),
+             includeMarkdown("./markdown/citations.Rmd"))
   )
 )
 

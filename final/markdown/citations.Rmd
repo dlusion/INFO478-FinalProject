@@ -1,0 +1,18 @@
+---
+title: "citations"
+author: "Molly Li"
+date: "6/8/2020"
+output: html_document
+---
+
+- 2016 National Survey of Drug Use and Health (NSDUH) Releases. 2016. Retrieved from https://www.samhsa.gov/data/release/2016-national-survey-drug-use-and-health-nsduh-releases
+- Eating Disorders Amoong US adults. 2017. Retrieved from https://www.nimh.nih.gov/health/statistics/eating-disorders.shtml
+- Anxiety Disorders Amoong US adults. 2017. Retrieved from https://www.nimh.nih.gov/health/statistics/any-anxiety-disorder.shtml
+- Personality Disorders Amoong US adults. 2017. Retrieved from https://www.nimh.nih.gov/health/statistics/personality-disorders.shtml#:~:text=Prevalence%20of%20Personality%20Disorders%20in%20Adults,-Based%20on%20diagno
+- Obsessive-Compulsive Disorder Among US adults. 2017. Retrieved from https://www.nimh.nih.gov/health/statistics/obsessive-compulsive-disorder-ocd.shtml#:~:text=Prevalence%20of%20Obsessive%2DCompulsive%20Disorder%20Among%20Adults,-Based%20on%20diagnostic&text=An%20estimated%201.2%25%20of%20U.S.,than%20for%20males%20(0.5%25).
+- Post-Traumatic Stress Disorder Amoong US adults. 2017. Retrieved from https://www.nimh.nih.gov/health/statistics/post-traumatic-stress-disorder-ptsd.shtml
+- Schizophrenia. 2017. Retrieved from https://www.nimh.nih.gov/health/statistics/schizophrenia.shtml
+- Attention-Deficit/Hyperactivity Disorder Among US adults. 2017. Retrieved from https://www.nimh.nih.gov/health/statistics/attention-deficit-hyperactivity-disorder-adhd.shtml
+- Any Mood Disorder. 2017. Retrieved from https://www.nimh.nih.gov/health/statistics/any-mood-disorder.shtml
+- WHO. (2004). GLOBAL BURDEN OF DISEASE 2004 UPDATE:DISABILITY WEIGHTS FOR DISEASES AND CONDITIONS. Retrieved from https://www.who.int/healthinfo/global_burden_disease/GBD2004_DisabilityWeights.pdf
+https://osmihelp.org/research
